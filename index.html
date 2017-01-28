@@ -2,7 +2,19 @@
 <html>
 	<head>
 	<script type="text/javascript">
-
+		window.onload = function(){
+			recognition.start();
+		}
+		
+		recognition.onresult = function(event) {
+			var last = event.results.length - 1;
+			var text = event.results[last][0].transcript;
+			$.ajax({
+				url: "https://api.meaningcloud.com/sentiment-2.1?key=29327c9f100dc3db29b760b9f62767d6&of=json&txt=" + text + "&lang=en";
+			}).done(function(data) {
+				console.log(data);
+			}
+		}
 	</script>
 	</head>
 	<body>
